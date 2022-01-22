@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load nomenclature_tags %}
+{% load cache %}
+
+{% block body %}
+<div class="row">
+    <div class="col-3">
+         <div class="list-group">
+        {% get_categories as categories%}
+        {% for category in categories %}
+            <a href="{% url 'category' category.pk %}" class="list-group-item list-group-item-action">{{ category.name }}</a>
+        {% endfor %}
+    </div>
+
+    </div>
+
+    <div class="col-9">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Category</th>
+              <th scope="col">Price</th>
+              <th scope="col">Status</th>
+              <th scope="col">Remains</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for product in product_list %}
+            <tr>
+              <td>{{ product.name }}</td>
+              <td>{{ product.category }}</td>
+              <td>{{ product.price }}</td>
+              <td>{{ product.status }}</td>
+              <td>{{ product.remains }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    {% include 'include/_pagination.html' %}
+    </div>
+
+</div>
+{% endblock %}
